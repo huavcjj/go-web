@@ -7,9 +7,7 @@ import (
 	"time"
 )
 
-var limitCh = make(chan struct{}, 10)
-
-func GetBoy(w http.ResponseWriter, r *http.Request) {
+func getBoy(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		err := recover()
 		if err != nil {
@@ -20,7 +18,7 @@ func GetBoy(w http.ResponseWriter, r *http.Request) {
 	w.Write([]byte("Hi Boy"))
 }
 
-func GetGirl(w http.ResponseWriter, r *http.Request) {
+func getGirl(w http.ResponseWriter, r *http.Request) {
 	defer func() {
 		err := recover()
 		if err != nil {
@@ -41,6 +39,7 @@ func timeMiddleware(next http.Handler) http.Handler {
 }
 
 func limitMiddleware(next http.Handler) http.Handler {
+	limitCh := make(chan struct{}, 10)
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
 		limitCh <- struct{}{}
 		log.Printf("current limitCh length: %d", len(limitCh))
@@ -50,8 +49,8 @@ func limitMiddleware(next http.Handler) http.Handler {
 }
 
 // func main() {
-// 	http.Handle("/boy", timeMiddleware(limitMiddleware(http.HandlerFunc(GetBoy))))
-// 	http.Handle("/girl", timeMiddleware(limitMiddleware(http.HandlerFunc(GetGirl))))
+// 	http.Handle("/boy", timeMiddleware(limitMiddleware(http.HandlerFunc(getBoy))))
+// 	http.Handle("/girl", timeMiddleware(limitMiddleware(http.HandlerFunc(getGirl))))
 
 // 	if err := http.ListenAndServe(":8080", nil); err != nil {
 // 		log.Fatal(err)

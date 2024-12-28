@@ -2,7 +2,6 @@ package main
 
 import (
 	"log"
-	"net/http"
 	"time"
 
 	"github.com/gin-gonic/gin"
@@ -27,16 +26,16 @@ func limitMV() gin.HandlerFunc {
 	}
 }
 
-func main() {
-	engine := gin.Default()
+// func main() {
+// 	engine := gin.Default()
 
-	engine.Use(timeMV())
-	engine.Use(limitMV())
+// 	engine.Use(timeMV())
+// 	engine.Use(limitMV())
 
-	engine.GET("/boy", func(ctx *gin.Context) {
-		ctx.String(http.StatusOK, "Hi Boy")
-	})
+// 	engine.GET("/boy", func(ctx *gin.Context) {
+// 		ctx.String(http.StatusOK, "Hi Boy")
+// 	})
 
-	engine.Run(":8080")
+// 	engine.Run(":8080")
 
-}
+// }
