@@ -89,6 +89,7 @@ func authMiddleware() gin.HandlerFunc {
 	}
 }
 
+/*
 func main() {
 	engine := gin.Default()
 
@@ -102,3 +103,4 @@ func main() {
 	engine.GET("/video", authMiddleware(), postVideo)
 	engine.Run(":5678")
 }
+*/
